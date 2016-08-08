@@ -50,4 +50,5 @@ dependencies {
 
     // mylib
     compile 'com.github.aucd29:common:1.0.9'
+    compile 'com.github.aucd29:frgmt:1.0.4'
 }

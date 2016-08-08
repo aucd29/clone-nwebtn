@@ -7,5 +7,9 @@
     android:layout_height="match_parent"
     tools:context="net.sarangnamu.webtoon.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/view_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>
