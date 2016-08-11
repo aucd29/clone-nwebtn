@@ -17,7 +17,7 @@
 
     <net.sarangnamu.common.ui.tab.BkTabLayout
         style="@style/MyWebtoonTabLayout"
-        android:id="@+id/my_webtoon_tab_layout"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -26,6 +26,6 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/my_webtoon_tab_layout"/>
+        android:layout_below="@+id/tab_layout"/>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ import net.sarangnamu.webtoon.controls.my.MyViewManager;
 import net.sarangnamu.webtoon.views.ViewFrgmtBase;
 import net.sarangnamu.webtoon.views.my.sub.MyStoreFrgmt;
 import net.sarangnamu.webtoon.views.my.sub.MyWebtoonFrgmt;
+import net.sarangnamu.webtoon.views.setting.SettingFrgmt;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,6 +59,6 @@ public class MyFrgmt extends ViewFrgmtBase {
             mLog.debug("clicked settings");
         }
 
-        ((MainActivity) getActivity()).showSettingMenu();
+        ((MainActivity) getActivity()).showFragmentFromRootLayout(SettingFrgmt.class);
     }
 }

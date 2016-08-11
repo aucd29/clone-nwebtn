@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import net.sarangnamu.common.ui.tab.BkTabLayout;
 import net.sarangnamu.webtoon.controls.ViewManager;
-import net.sarangnamu.webtoon.views.getcut.GetCutFrgmt;
+import net.sarangnamu.webtoon.views.getscene.GetSceneFrgmt;
 import net.sarangnamu.webtoon.views.main.MainFrgmt;
 import net.sarangnamu.webtoon.views.my.MyFrgmt;
 import net.sarangnamu.webtoon.views.setting.SettingFrgmt;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
 
-    @BindView(R.id.main_tab_layout)
+    @BindView(R.id.tab_layout)
     BkTabLayout mTabLayout;
 
     @Override
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         ViewManager.getInstance().add(R.id.view_main, StoreFrgmt.class);
                         break;
                     case 3:
-                        ViewManager.getInstance().add(R.id.view_main, GetCutFrgmt.class);
+                        ViewManager.getInstance().add(R.id.view_main, GetSceneFrgmt.class);
                         break;
                     case 4:
                         ViewManager.getInstance().add(R.id.view_main, MyFrgmt.class);
@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showSettingMenu() {
+    public void showFragmentFromRootLayout(Class<?> clazz) {
         if (mLog.isDebugEnabled()) {
             mLog.debug("show setting menu");
         }
 
-        ViewManager.getInstance().replace(R.id.root_layout, SettingFrgmt.class);
+        ViewManager.getInstance().replace(R.id.root_layout, clazz);
     }
 }
