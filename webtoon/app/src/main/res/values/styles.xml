@@ -11,4 +11,24 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+
+    <style name="MainTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabBackground">@drawable/main_tab_bg_selector</item>
+        <item name="tabTextAppearance">@style/MainTabLayoutText</item>
+        <item name="tabTextColor">#a1a1a1</item>
+        <item name="tabSelectedTextColor">#404040</item>
+    </style>
+
+    <style name="MainTabLayoutText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="MyWebtoonTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">#3bd100</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabBackground">@android:color/white</item>
+        <item name="tabTextColor">#a1a1a1</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
 </resources>

@@ -1,17 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/baseBg"
     >
 
+    <RadioGroup
+        android:id="@+id/my_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/my_webtoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@android:color/transparent"
+            android:paddingRight="10dp"
+            android:checked="true"
+            android:layout_gravity="center_vertical"
+            android:text="@string/my_radio_menu_1"/>
+
+        <RadioButton
+            android:id="@+id/my_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@android:color/transparent"
+            android:paddingLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/my_radio_menu_2"/>
+
+    </RadioGroup>
+
+    <!-- TOP MENU -->
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="my"
-        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_height="?attr/actionBarSize"
+        android:text="|"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
         />
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/my_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        />
+
+    <FrameLayout
+        android:id="@+id/my_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/my_radio_group"
+        />
+
+</RelativeLayout>

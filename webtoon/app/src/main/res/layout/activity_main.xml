@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     android:id="@+id/root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.sarangnamu.webtoon.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/view_main"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-</android.support.design.widget.CoordinatorLayout>
+        <net.sarangnamu.common.ui.tab.BkTabLayout
+            style="@style/MainTabLayout"
+            android:id="@+id/main_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            />
+
+        <!--app:tabIndicatorColor="@android:color/transparent"-->
+        <!--app:tabTextAppearance="@style/MyTabLayoutTextAppearance"-->
+        <!--app:tabTextColor="#a1a1a1"-->
+        <!--app:tabSelectedTextColor="#404040"-->
+
+        <FrameLayout
+            android:id="@+id/view_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/main_tab_layout"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

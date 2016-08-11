@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -14,6 +15,7 @@ repositories {
 
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -46,9 +48,11 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
 
     // open libs
-    compile 'com.roughike:bottom-bar:1.4.0.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
     // mylib
     compile 'com.github.aucd29:common:1.0.9'
     compile 'com.github.aucd29:frgmt:1.0.4'
+
 }

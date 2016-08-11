@@ -1,23 +1,15 @@
 package net.sarangnamu.webtoon;
 
-import android.support.annotation.IdRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.FrameLayout;
 
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnMenuTabClickListener;
-import com.roughike.bottombar.OnMenuTabSelectedListener;
-
-import net.sarangnamu.common.FrgmtBase;
-import net.sarangnamu.common.frgmt.FrgmtManager;
+import net.sarangnamu.common.ui.tab.BkTabLayout;
 import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.views.getcut.GetCutFrgmt;
 import net.sarangnamu.webtoon.views.main.MainFrgmt;
 import net.sarangnamu.webtoon.views.my.MyFrgmt;
+import net.sarangnamu.webtoon.views.setting.SettingFrgmt;
 import net.sarangnamu.webtoon.views.splash.SplashFrgmt;
 import net.sarangnamu.webtoon.views.store.StoreFrgmt;
 
@@ -30,82 +22,74 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
 
-//    @BindView(R.id.root_layout)
-//    CoordinatorLayout mRootLayout;
-//
-//    @BindView(R.id.view_main)
-//    FrameLayout mViewMain;
-
-    private BottomBar mBottomBar;
+    @BindView(R.id.main_tab_layout)
+    BkTabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ButterKnife.bind(this);
+        ButterKnife.bind(this);
 
-        // init
         initFrgmt();
         initSplash();
-        initBottomMenu(savedInstanceState);
+        initTab(savedInstanceState);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onBackPressed() {
+        if (!SplashFrgmt.isEnded()) {
+            return ;
+        }
 
-        // Necessary to restore the BottomBar's state, otherwise we would
-        // lose the current tab on orientation change.
-        mBottomBar.onSaveInstanceState(outState);
+        super.onBackPressed();
     }
 
-    private void initBottomMenu(Bundle savedInstanceState) {
-        mBottomBar = BottomBar.attach(findViewById(R.id.view_main), savedInstanceState);
-        mBottomBar.setMaxFixedTabs(5);
-        mBottomBar.noResizeGoodness();
+    private void initTab(Bundle savedInstanceState) {
+//        0xFFD9D9D9
+        mTabLayout.setSeparatorPosition(BkTabLayout.SeparatorPosition.TOP, 0xFF000000);
 
-        mBottomBar.setItems(R.menu.main_bottom_menu);
-        mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
+        for (int i=0; i<5; ++i) {
+            mTabLayout.addTab(mTabLayout.newTab().setText("Tab " + (i + 1)).setIcon(R.drawable.main_tab_ic_selector));
+        }
+
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.addOnTabSelectedListener(new BkTabLayout.OnTabSelectedListener() {
             @Override
-            public void onMenuTabSelected(@IdRes int menuItemId) {
-                switch (menuItemId) {
-                    case R.id.main_bottom_menu_1:
-                        mLog.debug("click menu1");
+            public void onTabSelected(BkTabLayout.Tab tab) {
+                if (mLog.isDebugEnabled()) {
+                    mLog.debug("MAIN TAB SELECTED : " + tab.getPosition());
+                }
+
+                switch (tab.getPosition()) {
+                    case 1:
+                        break;
+                    case 2:
+                        ViewManager.getInstance().add(R.id.view_main, StoreFrgmt.class);
+                        break;
+                    case 3:
+                        ViewManager.getInstance().add(R.id.view_main, GetCutFrgmt.class);
+                        break;
+                    case 4:
+                        ViewManager.getInstance().add(R.id.view_main, MyFrgmt.class);
+                        break;
+                    default:
                         if (SplashFrgmt.isEnded()) {
                             ViewManager.getInstance().add(R.id.view_main, MainFrgmt.class);
                         }
-                        break;
-                    case R.id.main_bottom_menu_2:
-                        mLog.debug("click menu2");
-                        // call intent
-                        break;
-                    case R.id.main_bottom_menu_3:
-                        mLog.debug("click menu3");
-                        ViewManager.getInstance().add(R.id.view_main, StoreFrgmt.class);
-                        break;
-                    case R.id.main_bottom_menu_4:
-                        mLog.debug("click menu4");
-                        ViewManager.getInstance().add(R.id.view_main, GetCutFrgmt.class);
-                        break;
-                    case R.id.main_bottom_menu_5:
-                        mLog.debug("click menu5");
-                        ViewManager.getInstance().add(R.id.view_main, MyFrgmt.class);
                         break;
                 }
             }
 
             @Override
-            public void onMenuTabReSelected(@IdRes int menuItemId) {
+            public void onTabUnselected(BkTabLayout.Tab tab) {
+            }
 
+            @Override
+            public void onTabReselected(BkTabLayout.Tab tab) {
             }
         });
-
-        mBottomBar.hide();
-
-        // Use custom typeface that's located at the "/src/main/assets" directory. If using with
-        // custom text appearance, set the text appearance first.
-//        bottomBar.setTypeFace("MyFont.ttf");
     }
 
     private void initFrgmt() {
@@ -113,10 +97,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initSplash() {
-        ViewManager.getInstance().add(R.id.root_layout, SplashFrgmt.class);
+        ViewManager.getInstance().replace(R.id.root_layout, SplashFrgmt.class);
         SplashFrgmt.setListener(() -> {
-            mBottomBar.show();
+            ViewManager.getInstance().popBack();
             ViewManager.getInstance().add(R.id.view_main, MainFrgmt.class);
         });
+    }
+
+    public void showSettingMenu() {
+        if (mLog.isDebugEnabled()) {
+            mLog.debug("show setting menu");
+        }
+
+        ViewManager.getInstance().replace(R.id.root_layout, SettingFrgmt.class);
     }
 }

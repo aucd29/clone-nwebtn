@@ -7,4 +7,7 @@
     <string name="main_bottom_menu_3">menu3</string>
     <string name="main_bottom_menu_4">menu4</string>
     <string name="main_bottom_menu_5">menu5</string>
+
+    <string name="my_radio_menu_1">mytoon</string>
+    <string name="my_radio_menu_2">mystore</string>
 </resources>
