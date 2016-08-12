@@ -1,4 +1,4 @@
-package net.sarangnamu.common.ui.tab;
+package net.sarangnamu.common.widget.tab;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -79,7 +79,7 @@ public class BkTabLayout extends HorizontalScrollView {
     private static final int DEFAULT_GAP_TEXT_ICON = 3; // dps
     private static final int INVALID_WIDTH = -1;
     private static final int DEFAULT_HEIGHT = 48; // dps
-    private static final int TAB_MIN_WIDTH_MARGIN = 56; //dps
+    private static final int TAB_MIN_WIDTH_MARGIN = 48; //56; //dps
     private static final int FIXED_WRAP_GUTTER_MIN = 16; //dps
     private static final int MOTION_NON_ADJACENT_OFFSET = 24;
 
@@ -340,8 +340,7 @@ public class BkTabLayout extends HorizontalScrollView {
         setScrollPosition(position, positionOffset, updateSelectedText, true);
     }
 
-    private void setScrollPosition(int position, float positionOffset, boolean updateSelectedText,
-                                   boolean updateIndicatorPosition) {
+    private void setScrollPosition(int position, float positionOffset, boolean updateSelectedText, boolean updateIndicatorPosition) {
         final int roundedPosition = Math.round(position + positionOffset);
         if (roundedPosition < 0 || roundedPosition >= mTabStrip.getChildCount()) {
             return;
@@ -1154,7 +1153,6 @@ public class BkTabLayout extends HorizontalScrollView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mLog.error("tab width " + getWidth());
         if (mSeparatorPt != null) {
             canvas.drawLine(0, 0, getWidth(), 0, mSeparatorPt);
         }

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <net.sarangnamu.common.ui.tab.BkTabLayout
+        <net.sarangnamu.common.widget.tab.BkTabLayout
             style="@style/MainTabLayout"
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"

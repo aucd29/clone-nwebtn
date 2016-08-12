@@ -11,7 +11,7 @@ public class GetSceneMyFrgmt extends SlideFrgmtBase {
 
     @Override
     protected void initLayout() {
-
+        super.initLayout();
     }
 
     @Override

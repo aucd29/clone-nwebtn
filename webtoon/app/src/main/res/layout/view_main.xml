@@ -1,42 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseBg"
     >
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:minHeight="10dp"-->
-        <!--android:background="#7f0000"-->
-        <!--&gt;-->
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="32423rsadrf"-->
-            <!--android:textSize="20sp"-->
-            <!--/>-->
-    <!--</android.support.design.widget.AppBarLayout>-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:id="@+id/nest_scrollview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="fill_vertical"-->
-        <!--android:fillViewport="true"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--&gt;-->
-        <!--&lt;!&ndash;app:layout_behavior="@string/appbar_scrolling_view_behavior"&ndash;&gt;-->
-    <!--</android.support.v4.widget.NestedScrollView>-->
+            <net.sarangnamu.common.widget.viewpager.BkViewPager
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:text="main"
-        />
+            <net.sarangnamu.common.widget.viewpager.BkDotIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="220dp"
+                />
 
-</android.support.design.widget.CoordinatorLayout>
+            <net.sarangnamu.common.widget.tab.BkTabLayout
+                android:id="@+id/tab_layout"
+                style="@style/MyWebtoonTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner"
+                app:tabMinWidth="50dp"
+                app:tabMode="scrollable"
+                />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:layout_below="@+id/tab_layout"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/hidden_title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/baseBg"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="TITLE"
+            />
+
+        <ImageView
+            android:id="@+id/to_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:layout_toLeftOf="@+id/title"
+            />
+
+        <ImageView
+            android:id="@+id/to_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:layout_toRightOf="@+id/title"
+            />
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_sort_black_24dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

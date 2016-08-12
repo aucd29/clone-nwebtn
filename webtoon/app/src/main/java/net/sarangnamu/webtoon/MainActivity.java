@@ -4,12 +4,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import net.sarangnamu.common.ui.tab.BkTabLayout;
+import net.sarangnamu.common.widget.tab.BkTabLayout;
 import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.views.getscene.GetSceneFrgmt;
 import net.sarangnamu.webtoon.views.main.MainFrgmt;
 import net.sarangnamu.webtoon.views.my.MyFrgmt;
-import net.sarangnamu.webtoon.views.setting.SettingFrgmt;
 import net.sarangnamu.webtoon.views.splash.SplashFrgmt;
 import net.sarangnamu.webtoon.views.store.StoreFrgmt;
 

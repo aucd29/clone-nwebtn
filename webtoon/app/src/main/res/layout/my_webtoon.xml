@@ -15,7 +15,7 @@
         <!--android:minHeight="?attr/actionBarSize"-->
         <!--/>-->
 
-    <net.sarangnamu.common.ui.tab.BkTabLayout
+    <net.sarangnamu.common.widget.tab.BkTabLayout
         style="@style/MyWebtoonTabLayout"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
