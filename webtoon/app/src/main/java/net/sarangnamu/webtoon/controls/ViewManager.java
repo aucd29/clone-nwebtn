@@ -1,5 +1,7 @@
 package net.sarangnamu.webtoon.controls;
 
+import android.support.v4.app.FragmentTransaction;
+
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
 /**

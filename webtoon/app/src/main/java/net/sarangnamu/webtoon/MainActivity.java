@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import net.sarangnamu.common.widget.tab.BkTabLayout;
+import net.sarangnamu.webtoon.controls.SlideViewManager;
 import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.views.getscene.GetSceneFrgmt;
 import net.sarangnamu.webtoon.views.main.MainFrgmt;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFrgmt() {
         ViewManager.getInstance().setFragmentManager(MainActivity.this);
+        SlideViewManager.getInstance().setFragmentManager(MainActivity.this);
     }
 
     private void initSplash() {
@@ -108,6 +110,6 @@ public class MainActivity extends AppCompatActivity {
             mLog.debug("show setting menu");
         }
 
-        ViewManager.getInstance().replace(R.id.root_layout, clazz);
+        SlideViewManager.getInstance().replace(R.id.root_layout, clazz);
     }
 }

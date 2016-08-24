@@ -10,24 +10,28 @@
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <net.sarangnamu.common.widget.viewpager.BkViewPager
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 />
 
-            <net.sarangnamu.common.widget.viewpager.BkDotIndicator
+            <com.matthewtamlin.sliding_intro_screen_library.indicators.DotIndicator
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="220dp"
+                android:layout_below="@id/banner"
+                android:translationY="-20dp"
                 />
 
             <net.sarangnamu.common.widget.tab.BkTabLayout
@@ -43,7 +47,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="800dp"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/tab_layout"
                 />
 

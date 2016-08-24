@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.sarangnamu.common.widget.viewpager.BkDotIndicator;
+import com.matthewtamlin.sliding_intro_screen_library.indicators.DotIndicator;
+
+import net.sarangnamu.common.DimTool;
 import net.sarangnamu.common.widget.viewpager.BkViewPager;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.model.Cfg;
 import net.sarangnamu.webtoon.views.ViewPagerFrgmtBase;
-import net.sarangnamu.webtoon.views.main.sub.MainSubFrgmt;
+import net.sarangnamu.webtoon.views.main.sub.MainGridFrgmt;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,7 +37,7 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     BkViewPager mBanner;
 
     @BindView(R.id.indicator)
-    BkDotIndicator mIndicator;
+    DotIndicator mIndicator;
 
     @Override
     protected void initTab() {
@@ -43,23 +45,21 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
             mTabLayout.addTab(mTabLayout.newTab().setText("" + i));
         }
 
-        mIndicator.setCount(Cfg.BANNER_COUNT);
-        mIndicator.setActiveDot(0);
+        mIndicator.setNumberOfItems(Cfg.BANNER_COUNT);
+        mIndicator.setSelectedItem(0, false);
     }
 
     @Override
     protected void initLayout() {
         super.initLayout();
 
-        mBanner.setAdapter(new MainBannerPagerAdapter(4));
+        mBanner.setAdapter(new MainBannerPagerAdapter(Cfg.BANNER_COUNT));
         mBanner.setAutoScroll(5000);
         mBanner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 int bannerDiv = position % Cfg.BANNER_COUNT;
-                mLog.debug("@@ onPageScrolled : " + position + ", DIV : " + bannerDiv);
-
-                mIndicator.setActiveDot(bannerDiv);
+                mIndicator.setSelectedItem(bannerDiv, true);
             }
 
             @Override
@@ -67,18 +67,35 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
             @Override
             public void onPageScrollStateChanged(int state) { }
         });
+
+        // FIXME
+        // image 를 넣을게 아니니.
+        mBanner.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                DimTool.dpToPixelInt(getContext(), 200)));
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // ViewPagerFrgmtBase
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected Fragment getViewPagerItem(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt(Cfg.POSITION, position);
 
-        Fragment frgmt = new MainSubFrgmt();
+        Fragment frgmt = new MainGridFrgmt();
         frgmt.setArguments(bundle);
 
         return frgmt;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // MainBannerPagerAdapter
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
     class MainBannerPagerAdapter extends PagerAdapter {
         int mCount;
@@ -95,16 +112,17 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             int color;
-            int pos = position % 3;
-
-//            mLog.debug("BANNER POSITION : " + pos);
+            int pos = position % Cfg.BANNER_COUNT;
 
             switch (pos) {
                 case 0:
-                    color = android.R.color.holo_blue_bright;
+                    color = android.R.color.holo_blue_dark;
                     break;
                 case 1:
-                    color = android.R.color.background_light;
+                    color = android.R.color.holo_orange_dark;
+                    break;
+                case 2:
+                    color = android.R.color.holo_red_dark;
                     break;
                 default:
                     color = android.R.color.holo_green_dark;
@@ -127,7 +145,6 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-//            mLog.debug("BANNER DESTROY POS : " + position);
             container.removeView((View) object);
         }
     }
@@ -157,5 +174,4 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     void showSearch(View view) {
         mLog.debug("show search");
     }
-
 }
