@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.matthewtamlin.sliding_intro_screen_library.indicators.DotIndicator;
 
+import net.sarangnamu.common.BkApp;
 import net.sarangnamu.common.DimTool;
+import net.sarangnamu.common.widget.scroll.BkScrollView;
 import net.sarangnamu.common.widget.viewpager.BkViewPager;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.model.Cfg;
@@ -38,6 +40,9 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
 
     @BindView(R.id.indicator)
     DotIndicator mIndicator;
+
+    @BindView(R.id.scroll)
+    BkScrollView mScroll;
 
     @Override
     protected void initTab() {
@@ -71,7 +76,33 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
         // FIXME
         // image 를 넣을게 아니니.
         mBanner.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                DimTool.dpToPixelInt(getContext(), 200)));
+                DimTool.dpToPixelInt(getContext(), Cfg.BANNER_HEIGHT)));
+
+        int hiddenTitleHeight = Cfg.actionBarHeight(getActivity());
+        if (mLog.isDebugEnabled()) {
+            mLog.debug("== hidden title height : " + hiddenTitleHeight);
+        }
+
+        int viewPagerHeight = (int) (BkApp.screenY() - dpToPixel(Cfg.BANNER_HEIGHT) + Cfg.actionBarHeight(getActivity()));
+//        mViewPager.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+//                viewPagerHeight));
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
+        lp.height = viewPagerHeight;
+
+        initScroll();
+    }
+
+    private void initScroll() {
+        mScroll.setOnScrollYListener(value -> {
+            mLog.debug("CHANGED Y SCROLL : " + value);
+
+            switch (value) {
+                case 0:
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

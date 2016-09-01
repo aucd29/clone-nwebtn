@@ -4,10 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.sarangnamu.common.widget.grid.BkGridView;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.controls.SlideViewManager;
 import net.sarangnamu.webtoon.model.Cfg;
@@ -23,7 +23,7 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainGridFrgmt.class);
 
     @BindView(R.id.grid)
-    GridView mGrid;
+    BkGridView mGrid;
 
     private int mPos;
 
@@ -32,11 +32,7 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
         mPos = getArguments().getInt(Cfg.POSITION);
 
         if (mLog.isDebugEnabled()) {
-            String log = "";
-            log += "===================================================================\n";
-            log += "position : " + mPos + "\n";
-            log += "===================================================================\n";
-            mLog.debug(log);
+            mLog.debug("main grid pos : " + mPos);
         }
 
         int total = 16;
@@ -46,6 +42,7 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
         mGrid.setOnItemClickListener((adapterView, view, i, l) -> {
             SlideViewManager.getInstance().replace(R.id.view_main, MainListFrgmt.class);
         });
+        mGrid.setLockScroll(true);
 
         mPos = getArguments().getInt(Cfg.POSITION);
     }
@@ -83,11 +80,11 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
                 view = LayoutInflater.from(getContext()).inflate(R.layout.main_grid_item, null);
 
                 vh = new ViewHolder();
-                vh.image = ButterKnife.findById(view, R.id.image);
-                vh.title = ButterKnife.findById(view, R.id.title);
-                vh.favorite = ButterKnife.findById(view, R.id.favorite);
-                vh.average = ButterKnife.findById(view, R.id.average);
-                vh.newItem = ButterKnife.findById(view, R.id.new_item);
+                vh.image      = ButterKnife.findById(view, R.id.image);
+                vh.title      = ButterKnife.findById(view, R.id.title);
+                vh.favorite   = ButterKnife.findById(view, R.id.favorite);
+                vh.average    = ButterKnife.findById(view, R.id.average);
+                vh.newItem    = ButterKnife.findById(view, R.id.new_item);
                 vh.writerInfo = ButterKnife.findById(view, R.id.writer_info);
 
                 view.setTag(vh);
