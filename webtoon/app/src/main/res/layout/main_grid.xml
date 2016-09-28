@@ -8,5 +8,4 @@
     android:id="@+id/grid"
     android:horizontalSpacing="1dp"
     android:verticalSpacing="1dp"
-    android:minHeight="500dp"
     />

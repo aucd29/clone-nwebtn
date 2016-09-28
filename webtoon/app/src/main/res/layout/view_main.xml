@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:background="@color/baseBg"
         >
     <!--android:isScrollContainer="true"-->
 
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tab_layout"
+                android:layout_marginBottom="?attr/actionBarSize"
                 />
 
         </RelativeLayout>
@@ -61,6 +63,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/baseBg"
         android:padding="10dp"
+        android:visibility="gone"
         >
 
         <ImageView
@@ -104,6 +107,22 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_sort_black_24dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/hidden_banner"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/hidden_banner_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
     </RelativeLayout>
 </RelativeLayout>

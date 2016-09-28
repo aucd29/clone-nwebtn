@@ -2179,16 +2179,15 @@ public class BkTabLayout extends HorizontalScrollView {
     private class AdapterChangeListener implements ViewPager.OnAdapterChangeListener {
         private boolean mAutoRefresh;
 
+        void setAutoRefresh(boolean autoRefresh) {
+            mAutoRefresh = autoRefresh;
+        }
+
         @Override
-        public void onAdapterChanged(@NonNull ViewPager viewPager,
-                                     @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
+        public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
             if (mViewPager == viewPager) {
                 setPagerAdapter(newAdapter, mAutoRefresh);
             }
-        }
-
-        void setAutoRefresh(boolean autoRefresh) {
-            mAutoRefresh = autoRefresh;
         }
     }
 

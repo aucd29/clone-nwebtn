@@ -46,9 +46,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // android
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:gridlayout-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
 
     // open libs
     compile 'com.jakewharton:butterknife:8.2.1'
@@ -56,7 +56,8 @@ dependencies {
     compile 'com.matthew-tamlin:sliding-intro-screen:3.0.2'
 
     // mylib
-    compile 'com.github.aucd29:common:1.0.9'
-    compile 'com.github.aucd29:frgmt:1.0.4'
+    compile 'com.github.aucd29:common:1.0.14'
+    compile 'com.github.aucd29:frgmt:1.0.6'
+    compile 'com.github.aucd29:ani:1.0.3'
 
 }

@@ -1,11 +1,14 @@
 package net.sarangnamu.webtoon.views.main;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,12 +16,17 @@ import com.matthewtamlin.sliding_intro_screen_library.indicators.DotIndicator;
 
 import net.sarangnamu.common.BkApp;
 import net.sarangnamu.common.DimTool;
+import net.sarangnamu.common.ani.AnimatorEndListener;
+import net.sarangnamu.common.frgmt.FrgmtManager;
 import net.sarangnamu.common.widget.scroll.BkScrollView;
 import net.sarangnamu.common.widget.viewpager.BkViewPager;
 import net.sarangnamu.webtoon.R;
+import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.model.Cfg;
 import net.sarangnamu.webtoon.views.ViewPagerFrgmtBase;
+import net.sarangnamu.webtoon.views.game.GameFrgmt;
 import net.sarangnamu.webtoon.views.main.sub.MainGridFrgmt;
+import net.sarangnamu.webtoon.views.search.SearchFrgmt;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +40,12 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     @BindView(R.id.hidden_title)
     RelativeLayout mHiddenTitle;
 
+    @BindView(R.id.hidden_banner)
+    RelativeLayout mHiddenBanner;
+
+    @BindView(R.id.hidden_banner_image)
+    ImageView mHiddenBannerImage;
+
     @BindView(R.id.title)
     TextView mTitle;
 
@@ -43,6 +57,9 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
 
     @BindView(R.id.scroll)
     BkScrollView mScroll;
+
+
+    private ObjectAnimator mHideTitleAnimator;
 
     @Override
     protected void initTab() {
@@ -78,14 +95,7 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
         mBanner.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 DimTool.dpToPixelInt(getContext(), Cfg.BANNER_HEIGHT)));
 
-        int hiddenTitleHeight = Cfg.actionBarHeight(getActivity());
-        if (mLog.isDebugEnabled()) {
-            mLog.debug("== hidden title height : " + hiddenTitleHeight);
-        }
-
         int viewPagerHeight = (int) (BkApp.screenY() - dpToPixel(Cfg.BANNER_HEIGHT) + Cfg.actionBarHeight(getActivity()));
-//        mViewPager.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-//                viewPagerHeight));
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         lp.height = viewPagerHeight;
 
@@ -93,16 +103,58 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     }
 
     private void initScroll() {
-        mScroll.setOnScrollYListener(value -> {
-            mLog.debug("CHANGED Y SCROLL : " + value);
+        final int hiddenTitleHeight = Cfg.actionBarHeight(getActivity());
+        mHiddenTitle.setTranslationY(hiddenTitleHeight * -1);
+        mHiddenBanner.setTranslationY(hiddenTitleHeight);
 
-            switch (value) {
-                case 0:
-                    break;
-                default:
-                    break;
+        mScroll.setOnScrollYListener(value -> {
+            if (mHiddenTitle.getVisibility() == View.GONE && value > 0) {
+                mLog.debug("y listener value (visible) : " + value);
+
+                mHiddenTitle.setVisibility(View.VISIBLE);
+                mHiddenBanner.setVisibility(View.VISIBLE);
+
+                moveLayout(mHiddenTitle, 0, null);
+                moveLayout(mHiddenBanner, 0, null);
+            } else if (mHiddenTitle.getVisibility() == View.VISIBLE && value == 0){
+                // animation 중에는 animation 요청을 하지 않는다
+                if (mHideTitleAnimator != null && mHideTitleAnimator.isRunning()) {
+                    return ;
+                }
+
+                mLog.debug("y listener value (gone)    : " + value);
+                mHideTitleAnimator = moveLayout(mHiddenTitle, hiddenTitleHeight * -1, new AnimatorEndListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mHiddenTitle.setVisibility(View.GONE);
+                        mHideTitleAnimator = null;
+                    }
+                });
+
+                moveLayout(mHiddenBanner, hiddenTitleHeight, new AnimatorEndListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mHiddenBanner.setVisibility(View.GONE);
+                    }
+                });
             }
         });
+    }
+
+    private ObjectAnimator moveLayout(View view, int y, AnimatorEndListener listener) {
+        ObjectAnimator obj = ObjectAnimator.ofFloat(view, "translationY", y);
+
+        if (listener != null) {
+            obj.addListener(listener);
+        }
+
+        obj.start();
+
+        return obj;
+    }
+
+    private void initHiddenTitle() {
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -189,20 +241,28 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     @OnClick(R.id.game)
     void showGame(View view) {
         mLog.debug("show game");
+
+        ViewManager.getInstance().replace(R.id.root_layout, GameFrgmt.class, FrgmtManager::setSlideTransition);
     }
 
     @OnClick(R.id.to_left)
     void toLeft(View view) {
         mLog.debug("to left");
+
+        // changed order by
     }
 
     @OnClick(R.id.to_right)
     void toRight(View view) {
         mLog.debug("to right");
+
+        // changed order by
     }
 
     @OnClick(R.id.search)
     void showSearch(View view) {
         mLog.debug("show search");
+
+        ViewManager.getInstance().replace(R.id.root_layout, SearchFrgmt.class, FrgmtManager::setSlideTransition);
     }
 }

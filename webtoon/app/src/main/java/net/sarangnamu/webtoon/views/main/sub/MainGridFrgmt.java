@@ -1,5 +1,6 @@
 package net.sarangnamu.webtoon.views.main.sub;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.sarangnamu.common.frgmt.FrgmtManager;
 import net.sarangnamu.common.widget.grid.BkGridView;
 import net.sarangnamu.webtoon.R;
-import net.sarangnamu.webtoon.controls.SlideViewManager;
+import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.model.Cfg;
 import net.sarangnamu.webtoon.views.NoPrefixFrgmtBase;
 
@@ -19,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 8. 11.. <p/>
  */
-public class MainGridFrgmt extends NoPrefixFrgmtBase {
+public class MainGridFrgmt extends NoPrefixFrgmtBase implements View.OnClickListener {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainGridFrgmt.class);
 
     @BindView(R.id.grid)
@@ -35,16 +37,24 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
             mLog.debug("main grid pos : " + mPos);
         }
 
-        int total = 16;
-
         mGrid.setNumColumns(3);
         mGrid.setAdapter(new MainSubAdapter());
         mGrid.setOnItemClickListener((adapterView, view, i, l) -> {
-            SlideViewManager.getInstance().replace(R.id.view_main, MainListFrgmt.class);
+            ViewManager.getInstance().replace(R.id.view_main, MainListFrgmt.class, FrgmtManager::setSlideTransition);
         });
         mGrid.setLockScroll(true);
 
         mPos = getArguments().getInt(Cfg.POSITION);
+    }
+
+    @Override
+    public void onClick(View v) {
+        ViewHolder vh = (ViewHolder) v.getTag();
+
+        Bundle bd = new Bundle();
+        bd.putInt(Cfg.POSITION, vh.position);
+
+        ViewManager.getInstance().replace(R.id.view_main, MainListFrgmt.class, bd, FrgmtManager::setSlideTransition);
     }
 
     class ViewHolder {
@@ -54,6 +64,7 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
         TextView average;
         ImageView newItem;
         TextView writerInfo;
+        int position;
     }
 
     class MainSubAdapter extends BaseAdapter {
@@ -93,8 +104,11 @@ public class MainGridFrgmt extends NoPrefixFrgmtBase {
             }
 
             vh.image.setBackgroundResource(R.drawable.ic_accessibility_black_24dp);
-            vh.title.setText("title (" + mPos + ")");
+            vh.title.setText("title (" + mPos + ") (" + i + ")");
             vh.writerInfo.setText("writer info");
+            vh.position = i;
+
+            view.setOnClickListener(MainGridFrgmt.this);
 
             return view;
         }
