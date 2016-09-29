@@ -153,10 +153,6 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
         return obj;
     }
 
-    private void initHiddenTitle() {
-
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // ViewPagerFrgmtBase

@@ -18,6 +18,9 @@ public class Cfg extends BkCfg {
     public static final int BANNER_COUNT  = 5;
     public static final int MAIN_SUB      = 26;
     public static final int BANNER_HEIGHT = 190;
+    
+    // main list
+    public static final int MAIN_LIST_COUNT = 20;
 
     public static int actionBarHeight(@NonNull Context context) {
         TypedValue tv = new TypedValue();

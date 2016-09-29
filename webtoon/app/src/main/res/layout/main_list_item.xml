@@ -3,49 +3,60 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/baseBg"
     >
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
+        android:layout_toRightOf="@id/image"
+        android:text="TITLE DFADADF"
         />
 
     <ImageView
-        android:id="@+id/favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        />
-
-    <TextView
-        android:id="@+id/average"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_toRightOf="@+id/favorite"
+        android:id="@+id/up_icon"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        android:layout_toRightOf="@+id/title"
         />
 
     <ImageView
-        android:id="@+id/new_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_toRightOf="@+id/average"
+        android:id="@+id/star_icon"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toRightOf="@id/image"
+        android:layout_below="@id/title"
         />
 
     <TextView
-        android:id="@+id/writer_info"
+        android:id="@+id/star_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/favorite"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@id/star_icon"
+        android:text="9.95"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/star_text"
+        android:layout_below="@+id/title"
+        android:text="16.09.29"
+        />
+
+    <ImageView
+        android:id="@+id/music_icon"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toRightOf="@id/date"
+        android:layout_below="@id/title"
         />
 </RelativeLayout>

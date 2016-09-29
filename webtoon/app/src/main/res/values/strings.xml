@@ -8,6 +8,11 @@
     <string name="main_bottom_menu_4">menu4</string>
     <string name="main_bottom_menu_5">menu5</string>
 
+    <string name="main_list_back">Back</string>
+    <string name="main_list_goto_first_page">firstpage</string>
+    <string name="main_list_favorite">favorite</string>
+
     <string name="my_radio_menu_1">mytoon</string>
     <string name="my_radio_menu_2">mystore</string>
+
 </resources>
