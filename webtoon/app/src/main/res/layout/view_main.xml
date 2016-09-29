@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             >
 
-            <net.sarangnamu.common.widget.viewpager.BkViewPager
+            <net.sarangnamu.common.widget.viewpager.BkBannerViewPager
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
     </net.sarangnamu.common.widget.scroll.BkScrollView>
 
     <RelativeLayout
-        android:id="@+id/hidden_title"
+        android:id="@+id/moving_title"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/baseBg"
@@ -111,7 +111,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/hidden_banner"
+        android:id="@+id/moving_banner"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
@@ -120,7 +120,7 @@
         >
 
         <ImageView
-            android:id="@+id/hidden_banner_image"
+            android:id="@+id/moving_banner_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

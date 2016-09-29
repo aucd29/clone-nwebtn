@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,15 @@ import net.sarangnamu.common.DimTool;
 import net.sarangnamu.common.ani.AnimatorEndListener;
 import net.sarangnamu.common.frgmt.FrgmtManager;
 import net.sarangnamu.common.widget.scroll.BkScrollView;
-import net.sarangnamu.common.widget.viewpager.BkViewPager;
+import net.sarangnamu.common.widget.viewpager.BkBannerViewPager;
+import net.sarangnamu.common.widget.viewpager.BkBannerPagerAdapter;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.model.Cfg;
 import net.sarangnamu.webtoon.views.ViewPagerFrgmtBase;
 import net.sarangnamu.webtoon.views.game.GameFrgmt;
 import net.sarangnamu.webtoon.views.main.sub.MainGridFrgmt;
+import net.sarangnamu.webtoon.views.main.sub.MainListFrgmt;
 import net.sarangnamu.webtoon.views.search.SearchFrgmt;
 
 import butterknife.BindView;
@@ -37,20 +38,20 @@ import butterknife.OnClick;
 public class MainFrgmt extends ViewPagerFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainFrgmt.class);
 
-    @BindView(R.id.hidden_title)
-    RelativeLayout mHiddenTitle;
+    @BindView(R.id.moving_title)
+    RelativeLayout mMovingTitle;
 
-    @BindView(R.id.hidden_banner)
-    RelativeLayout mHiddenBanner;
+    @BindView(R.id.moving_banner)
+    RelativeLayout mMovingBanner;
 
-    @BindView(R.id.hidden_banner_image)
-    ImageView mHiddenBannerImage;
+    @BindView(R.id.moving_banner_image)
+    ImageView mMovingBannerImage;
 
     @BindView(R.id.title)
     TextView mTitle;
 
     @BindView(R.id.banner)
-    BkViewPager mBanner;
+    BkBannerViewPager mBanner;
 
     @BindView(R.id.indicator)
     DotIndicator mIndicator;
@@ -58,8 +59,7 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     @BindView(R.id.scroll)
     BkScrollView mScroll;
 
-
-    private ObjectAnimator mHideTitleAnimator;
+    private ObjectAnimator mMovingTitleAnimator;
 
     @Override
     protected void initTab() {
@@ -104,37 +104,37 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
 
     private void initScroll() {
         final int hiddenTitleHeight = Cfg.actionBarHeight(getActivity());
-        mHiddenTitle.setTranslationY(hiddenTitleHeight * -1);
-        mHiddenBanner.setTranslationY(hiddenTitleHeight);
+        mMovingTitle.setTranslationY(hiddenTitleHeight * -1);
+        mMovingBanner.setTranslationY(hiddenTitleHeight);
 
         mScroll.setOnScrollYListener(value -> {
-            if (mHiddenTitle.getVisibility() == View.GONE && value > 0) {
+            if (mMovingTitle.getVisibility() == View.GONE && value > 0) {
                 mLog.debug("y listener value (visible) : " + value);
 
-                mHiddenTitle.setVisibility(View.VISIBLE);
-                mHiddenBanner.setVisibility(View.VISIBLE);
+                mMovingTitle.setVisibility(View.VISIBLE);
+                mMovingBanner.setVisibility(View.VISIBLE);
 
-                moveLayout(mHiddenTitle, 0, null);
-                moveLayout(mHiddenBanner, 0, null);
-            } else if (mHiddenTitle.getVisibility() == View.VISIBLE && value == 0){
+                moveLayout(mMovingTitle, 0, null);
+                moveLayout(mMovingBanner, 0, null);
+            } else if (mMovingTitle.getVisibility() == View.VISIBLE && value == 0){
                 // animation 중에는 animation 요청을 하지 않는다
-                if (mHideTitleAnimator != null && mHideTitleAnimator.isRunning()) {
+                if (mMovingTitleAnimator != null && mMovingTitleAnimator.isRunning()) {
                     return ;
                 }
 
                 mLog.debug("y listener value (gone)    : " + value);
-                mHideTitleAnimator = moveLayout(mHiddenTitle, hiddenTitleHeight * -1, new AnimatorEndListener() {
+                mMovingTitleAnimator = moveLayout(mMovingTitle, hiddenTitleHeight * -1, new AnimatorEndListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mHiddenTitle.setVisibility(View.GONE);
-                        mHideTitleAnimator = null;
+                        mMovingTitle.setVisibility(View.GONE);
+                        mMovingTitleAnimator = null;
                     }
                 });
 
-                moveLayout(mHiddenBanner, hiddenTitleHeight, new AnimatorEndListener() {
+                moveLayout(mMovingBanner, hiddenTitleHeight, new AnimatorEndListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mHiddenBanner.setVisibility(View.GONE);
+                        mMovingBanner.setVisibility(View.GONE);
                     }
                 });
             }
@@ -180,22 +180,15 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     //
     ////////////////////////////////////////////////////////////////////////////////////
 
-    class MainBannerPagerAdapter extends PagerAdapter {
-        int mCount;
-
+    class MainBannerPagerAdapter extends BkBannerPagerAdapter {
         public MainBannerPagerAdapter(int count) {
-            mCount = count;
-        }
-
-        @Override
-        public int getCount() {
-            return Integer.MAX_VALUE;
+            super(count);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             int color;
-            int pos = position % Cfg.BANNER_COUNT;
+            int pos = position % mRealCount;
 
             switch (pos) {
                 case 0:
@@ -215,20 +208,16 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
             View view = new View(getActivity());
             view.setClickable(true);
             view.setBackgroundResource(color);
+            view.setOnClickListener(v -> {
+                Bundle db = new Bundle();
+                db.putInt(Cfg.POSITION, pos);
+
+                ViewManager.getInstance().replace(R.id.view_main, MainListFrgmt.class, db, FrgmtManager::setSlideTransition);
+            });
 
             container.addView(view);
 
             return view;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((View) object);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
         }
     }
 
@@ -249,14 +238,14 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
     void toLeft(View view) {
         mLog.debug("to left");
 
-        // changed order by
+        // change order by
     }
 
     @OnClick(R.id.to_right)
     void toRight(View view) {
         mLog.debug("to right");
 
-        // changed order by
+        // change order by
     }
 
     @OnClick(R.id.search)
