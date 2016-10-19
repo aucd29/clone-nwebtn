@@ -2,12 +2,12 @@ package net.sarangnamu.webtoon.views.splash;
 
 import android.os.AsyncTask;
 
-import net.sarangnamu.webtoon.views.ViewFrgmtBase;
+import net.sarangnamu.common.InflateFrgmtBase;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 8. 5.. <p/>
  */
-public class SplashFrgmt extends ViewFrgmtBase {
+public class SplashFrgmt extends InflateFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(SplashFrgmt.class);
     private static OnSplashEndListener mListener;
     private static boolean mEnded = false;

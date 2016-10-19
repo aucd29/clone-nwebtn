@@ -2,47 +2,41 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <!-- BACK TITLE -->
+    <!-- LINE 1 -->
 
-    <LinearLayout
+    <net.sarangnamu.common.widget.button.IconButton
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        >
-
-        <ImageView
-            android:id="@+id/back_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:id="@+id/back_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_list_back"
-            />
-
-    </LinearLayout>
+        app:bk_icon="@drawable/ic_chevron_left_black_24dp"
+        app:bk_text="@string/main_list_back"
+        app:bk_icon_left_margin="10dp"
+        app:bk_text_left_margin="5dp"
+        />
 
     <ImageButton
         android:id="@+id/set_area"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentRight="true"
-        />
+        android:src="@drawable/ic_get_app_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_marginRight="10dp"
+        tools:ignore="RtlHardcoded"/>
 
     <ImageButton
         android:id="@+id/sharing"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_toLeftOf="@id/set_area"
-        />
+        android:layout_marginRight="20dp"
+        android:src="@drawable/ic_share_black_24dp"
+        android:background="@android:color/transparent"
+        tools:ignore="RtlHardcoded"/>
 
     <View
         android:id="@+id/black_bar"
@@ -52,47 +46,46 @@
         android:layout_below="@id/back"
         />
 
-    <RelativeLayout
+    <!-- LINE 2 -->
+
+    <net.sarangnamu.common.widget.button.IconButton
         android:id="@+id/like_area"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@id/black_bar"
-        >
-
-        <ImageView
-            android:id="@+id/like_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/like_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-    </RelativeLayout>
+        app:bk_icon="@drawable/ic_thumb_up_black_24dp"
+        app:bk_text="327,029"
+        app:bk_icon_left_margin="10dp"
+        app:bk_text_left_margin="5dp"
+    />
 
     <TextView
         android:id="@+id/goto_first_page"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:text="@string/main_list_goto_first_page"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/black_bar"
+        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
         />
 
-    <TextView
-        android:id="@+id/favorite_text"
+    <net.sarangnamu.common.widget.button.IconButton
+        android:id="@+id/favorite"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_list_favorite"
-        android:layout_toLeftOf="@id/goto_first_page"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/black_bar"
+        android:layout_toLeftOf="@+id/goto_first_page"
+        android:layout_toStartOf="@+id/goto_first_page"
+        android:layout_marginRight="10dp"
+        app:bk_icon="@drawable/ic_star_border_black_24dp"
+        app:bk_text="@string/main_list_favorite"
+        app:bk_icon_left_margin="10dp"
+        app:bk_text_left_margin="5dp"
         />
 
-    <ImageView
-        android:id="@+id/favorite_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/favorite_text"
-        />
+    <!-- LINE 3 -->
 
     <View
         android:id="@+id/black_bar2"

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import net.sarangnamu.common.InflateFrgmtBase;
 import net.sarangnamu.common.widget.tab.BkTabLayout;
 import net.sarangnamu.webtoon.R;
 
@@ -14,7 +15,7 @@ import butterknife.BindView;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 8. 11.. <p/>
  */
-public abstract class ViewPagerFrgmtBase extends ViewFrgmtBase {
+public abstract class ViewPagerFrgmtBase extends InflateFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(ViewPagerFrgmtBase.class);
 
     @BindView(R.id.tab_layout)

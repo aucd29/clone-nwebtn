@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                     mLog.debug("MAIN TAB SELECTED : " + tab.getPosition());
                 }
 
+                ViewManager.getInstance().popBackAll();
+
                 switch (tab.getPosition()) {
                     case 1:
                         break;

@@ -5,10 +5,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
+import net.sarangnamu.common.InflateFrgmtBase;
 import net.sarangnamu.webtoon.MainActivity;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.controls.my.MyViewManager;
-import net.sarangnamu.webtoon.views.ViewFrgmtBase;
 import net.sarangnamu.webtoon.views.my.sub.MyStoreFrgmt;
 import net.sarangnamu.webtoon.views.my.sub.MyWebtoonFrgmt;
 import net.sarangnamu.webtoon.views.setting.SettingFrgmt;
@@ -19,7 +19,7 @@ import butterknife.OnClick;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 8. 4.. <p/>
  */
-public class MyFrgmt extends ViewFrgmtBase {
+public class MyFrgmt extends InflateFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MyFrgmt.class);
 
     @BindView(R.id.my_main_layout)

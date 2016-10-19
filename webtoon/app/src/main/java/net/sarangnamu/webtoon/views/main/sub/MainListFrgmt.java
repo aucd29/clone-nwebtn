@@ -69,7 +69,7 @@ public class MainListFrgmt extends NoPrefixFrgmtBase implements View.OnClickList
         mLog.debug("goto first page");
     }
 
-    @OnClick(R.id.favorite_text)
+    @OnClick(R.id.favorite)
     void setFavorite() {
         mLog.debug("set favorite");
     }
