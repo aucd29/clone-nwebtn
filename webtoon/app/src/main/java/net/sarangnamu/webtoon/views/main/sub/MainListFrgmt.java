@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
+import net.sarangnamu.common.widget.button.IconButton;
 import net.sarangnamu.webtoon.R;
 import net.sarangnamu.webtoon.controls.ViewManager;
 import net.sarangnamu.webtoon.model.Cfg;
@@ -29,6 +30,9 @@ public class MainListFrgmt extends NoPrefixFrgmtBase implements View.OnClickList
 
     @BindView(R.id.list)
     ListView mList;
+
+    @BindView(R.id.like_area)
+    IconButton mLike;
 
     @Override
     protected void initLayout() {
@@ -61,7 +65,10 @@ public class MainListFrgmt extends NoPrefixFrgmtBase implements View.OnClickList
 
     @OnClick(R.id.like_area)
     void likeThis() {
-        mLog.debug("like this");
+        if (mLike.isIconSelected()) {
+
+        }
+
     }
 
     @OnClick(R.id.goto_first_page)

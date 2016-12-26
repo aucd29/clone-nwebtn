@@ -1,6 +1,7 @@
 package net.sarangnamu.common.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -67,6 +68,11 @@ public class StyleableHelper {
         public CharSequence getText(String resid) {
             int id = getStyleableId(mContext, resid);
             return mTypeArr.getText(id);
+        }
+
+        public ColorStateList getColorStateList(String resid) {
+            int id = getStyleableId(mContext, resid);
+            return mTypeArr.getColorStateList(id);
         }
 
         public void recycle() {

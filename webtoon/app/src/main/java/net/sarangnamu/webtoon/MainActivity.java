@@ -32,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initFrgmt();
-        initSplash();
+        if (savedInstanceState == null) {
+            initFrgmt();
+            initSplash();
+        }
+
         initTab(savedInstanceState);
     }
 

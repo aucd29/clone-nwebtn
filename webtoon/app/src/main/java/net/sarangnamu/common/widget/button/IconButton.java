@@ -1,12 +1,14 @@
 package net.sarangnamu.common.widget.button;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +26,7 @@ public class IconButton extends LinearLayout {
 
     protected ImageView mIcon;
     protected TextView mText;
+    protected boolean mEnabled;
 
     public IconButton(Context context) {
         super(context);
@@ -45,6 +48,16 @@ public class IconButton extends LinearLayout {
 
         setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER_VERTICAL);
+        setDuplicateParentStateEnabled(true);
+        setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mIcon.setSelected(!mIcon.isSelected());
+                    break;
+            }
+
+            return true;
+        });
 
         mIcon = new ImageView(getContext());
         mText = new TextView(getContext());
@@ -53,6 +66,7 @@ public class IconButton extends LinearLayout {
 
         Drawable icon;
         CharSequence text;
+        ColorStateList textColor;
 
         int iconLeft, iconTop, iconRight, iconBottom;
         int textLeft, textTop, textRight, textBottom;
@@ -73,6 +87,7 @@ public class IconButton extends LinearLayout {
             textBottom = style.getDimensionPixelSize("bk_text_bottom_margin", -1);
 
             textSize   = style.getDimensionPixelSize("bk_text_size", -1);
+            textColor  = style.getColorStateList("bk_text_color");
         } finally {
             style.recycle();
             style = null;
@@ -91,6 +106,10 @@ public class IconButton extends LinearLayout {
 
         if (textSize != -1) {
             mText.setTextSize(textSize);
+        }
+
+        if (textColor != null) {
+            mText.setTextColor(textColor);
         }
 
         addView(mIcon);
@@ -136,6 +155,14 @@ public class IconButton extends LinearLayout {
         lp.bottomMargin = DimTool.dpToPixelInt(getContext(), bottom);
 
         mIcon.setLayoutParams(lp);
+    }
+
+    public boolean isIconSelected() {
+        return mIcon.isSelected();
+    }
+
+    public void setIconSelected(boolean selected) {
+        mIcon.setSelected(selected);
     }
 
     // TEXT

@@ -2,18 +2,17 @@
 <resources>
     <declare-styleable name="bk_icon_button">
         <attr name="bk_icon" format="reference"/>
-        <attr name="bk_text" format="reference|string"/>
-
         <attr name="bk_icon_left_margin" format="dimension"/>
         <attr name="bk_icon_top_margin" format="dimension"/>
         <attr name="bk_icon_right_margin" format="dimension"/>
         <attr name="bk_icon_bottom_margin" format="dimension"/>
 
+        <attr name="bk_text" format="reference|string"/>
         <attr name="bk_text_left_margin" format="dimension"/>
         <attr name="bk_text_top_margin" format="dimension"/>
         <attr name="bk_text_right_margin" format="dimension"/>
         <attr name="bk_text_bottom_margin" format="dimension"/>
-
         <attr name="bk_text_size" format="dimension"/>
+        <attr name="bk_text_color" format="color" />
     </declare-styleable>
 </resources>

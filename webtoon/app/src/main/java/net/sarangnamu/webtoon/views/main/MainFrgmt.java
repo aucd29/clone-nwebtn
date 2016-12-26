@@ -187,18 +187,10 @@ public class MainFrgmt extends ViewPagerFrgmtBase {
             int pos = position % mRealCount;
 
             switch (pos) {
-                case 0:
-                    color = android.R.color.holo_blue_dark;
-                    break;
-                case 1:
-                    color = android.R.color.holo_orange_dark;
-                    break;
-                case 2:
-                    color = android.R.color.holo_red_dark;
-                    break;
-                default:
-                    color = android.R.color.holo_green_dark;
-                    break;
+                case 0:          color = android.R.color.holo_blue_dark;                   break;
+                case 1:          color = android.R.color.holo_orange_dark;                 break;
+                case 2:          color = android.R.color.holo_red_dark;                    break;
+                default:         color = android.R.color.holo_green_dark;                  break;
             }
 
             View view = new View(getActivity());
